@@ -117,14 +117,27 @@
     This is the big numbers addition block:
     `;
 
+    // Thanks to: https://latex.org/forum/viewtopic.php?t=7558
+    // TODO: migrate to full blown PDF LateX like in Latex.org.
     for (var i = 0; i < 5; i++) {
 
         arg1 = getRndInteger(100, 1000000)
         arg2 = getRndInteger(0, 1000000)
+        // text += `
+        //     \\begin{tabular}{l r}
+        //     & ${arg1}\\\\
+        //     +& ${arg2}\\\\
+        //     \\hline
+        //     & 123
+        //     \\end{tabular}
+        // `;
         text += `
-        \\[ 
-            ${arg1} + ${arg2} = 
-        \\]
+            \\[
+            ${arg1} \\newline
+            + ${arg2} \\newline
+            ---- \\newline
+
+            \\]
         `;
     }
 
