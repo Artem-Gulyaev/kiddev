@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta http-equiv="content-language" content="en">
+
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+  <!-- base can be used to keep asset paths relative to here -->
+  <base href="../../dist/">
+
+  <script src="https://cdn.jsdelivr.net/npm/latex.js/dist/latex.js"></script>
+
+  <title>LaTeX.js Browser Test</title>
+  <style>
+    body {
+      background-color: linen;
+    }
+    
+    h1 {
+      color: maroon;
+      margin-left: 40px;
+    }
+
+    .MainDoc {
+        width: 90%;
+        align-self: center;
+        margin: 4%;
+    }
+
+    #outer {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+    }
+    #inner {
+        justify-content: center;
+        width: 50%;
+        display: flex;
+        background-color: white;
+        border-width: 3px;
+        border-radius: 20px;
+        border-color: black;
+    }
+    </style>
+</head>
+
+<body>
+  <h1>This is the generator for the 1st grade 2/2 part tasks.</h1>
+
+  <div id="outer">
+    <div id="inner">
+        <p class="MainDoc" id="example_1_1_2"></p>
+    </div>
+  </div>
+
+  <script>
+
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) ) + min;
+    }
+
+    text = `
+    \\documentclass{article}
+
+    \\begin{document}
+    `;
+    text += `
+    This is the summation block:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        arg1 = getRndInteger(0, 100)
+        arg2 = getRndInteger(0, 100)
+        text += `
+        \\[ 
+            ${arg1} + ${arg2} = 
+        \\]
+        `;
+    }
+
+    text += `
+    This is the multiplication block:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        arg1 = getRndInteger(0, 10)
+        arg2 = getRndInteger(0, 10)
+        text += `
+        \\[ 
+            ${arg1} \\times{} ${arg2} = 
+        \\]
+        `;
+    }
+
+    text += `
+    This is the subtraction block with positive result:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        arg1 = getRndInteger(0, 100)
+        arg2 = getRndInteger(0, arg1)
+        text += `
+        \\[ 
+            ${arg1} - ${arg2} = 
+        \\]
+        `;
+    }
+
+    text += `
+    This is the big numbers addition block:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        arg1 = getRndInteger(100, 1000000)
+        arg2 = getRndInteger(0, 1000000)
+        text += `
+        \\[ 
+            ${arg1} + ${arg2} = 
+        \\]
+        `;
+    }
+
+
+    text += `
+    This is the subtraction block with negative or 0 result:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        arg1 = getRndInteger(0, 100)
+        arg2 = getRndInteger(arg1, 100)
+        text += `
+        \\[ 
+            ${arg1} - ${arg2} = 
+        \\]
+        `;
+    }
+
+    text += `
+    This is the -1 multiplication:
+    `;
+
+    for (var i = 0; i < 5; i++) {
+
+        count = getRndInteger(2, 7)
+
+        text += `
+        \\[ (-1)
+        `;
+
+        for (var j = 0; j < count; j++) {
+            text += ` \\times (-1)
+            `;
+        }
+
+        text += ` =
+        \\] 
+        `;
+    }
+
+    text += `
+    \\end{document}
+    `;
+
+    var generator = new latexjs.HtmlGenerator({ hyphenate: false, documentClass: "article" })
+
+    generator = latexjs.parse(text, { generator: generator })
+
+    document.head.appendChild(generator.stylesAndScripts("https://cdn.jsdelivr.net/npm/latex.js@0.12.4/dist/"))
+    document.getElementById("example_1_1_2").appendChild(generator.domFragment())
+  </script>
+</body>
+
+</html>
